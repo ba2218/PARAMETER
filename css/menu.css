@@ -1,0 +1,104 @@
+@charset "utf-8";
+/* CSS Document */
+/*home*/
+.logo{
+	background-image:url(../images/logo.png);
+	width:182px;
+	height:190px;
+	float:left;
+	margin:11px 0 0 9px;}
+
+.tabs{
+	height:302px;
+	width:26px;
+	margin: 0 0 0 200px;
+	}
+	
+#home {
+  width:26px;
+  height:100px;
+  float:left;
+}
+#work {
+  width:26px;
+  height:100px;
+  float:left;
+}
+#about {
+  width:26px;
+  height:100px;
+  float:left;
+}
+#buttons{
+	height:302px;
+	background:url(../images/nav-sprite.png);
+	background-repeat:no-repeat;
+	list-style:none;
+	display:block;
+
+}
+.tabs ul li a {
+  display:block;
+  width:26px;
+  height:100%;
+  text-indent:-9999px;
+  outline:none;
+}
+li#home:hover {
+  background:url(../images/nav-sprite.png) no-repeat  -26px 0px;
+}
+li#work:hover {
+  background:url(../images/nav-sprite.png) no-repeat  -26px -100px;
+}
+li#about:hover {
+  background:url(../images/nav-sprite.png) no-repeat  -26px -200px;
+}
+
+
+/*work*/
+.logo-work{
+	background-image:url(../images/work.png);
+	width:181px;
+	height:190px;
+	float:left;
+	margin:11px 0 0 10px}
+
+/*about*/
+.logo-about{
+	background-image:url(../images/about.png);
+	width:182px;
+	height:190px;
+	float:left;
+	margin:11px 0 0 9px}
+
+/*contact*/
+.logo-contact{
+	background-image:url(../images/contact.png);
+	width:182px;
+	height:190px;
+	float:left;
+	margin:11px 0 0 0px}
+
+.contact {
+  width:26px;
+  height:100px;
+  float:right;
+  z-index:1;
+}
+
+#c-button{
+	height:100px;
+	background:url(../images/contact-button.png);
+	background-repeat:no-repeat;
+	list-style:none;
+	display:block;
+
+}
+.contact ul li a {
+  display:block;
+  width:26px;
+  height:100px;
+  text-indent:-9999px;
+  outline:none;
+}
+	
