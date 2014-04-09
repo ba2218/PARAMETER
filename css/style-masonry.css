@@ -1,11 +1,11 @@
 .wrap{float:left; display:block; position: relative; overflow: hidden; width:90%; height:1000px;  }
 .box { float:left; overflow:hidden; z-index:1; background: #000 url(../images/box_bg.jpg) repeat-y; color: white;  width: 350px; height: 269px; cursor: pointer; margin:0px 0 20px 20px ;  border:#000 3px solid; }
 
-.expandable { display:none; position:absolute; top:0; z-index:5;  height: 100%; overflow: hidden; padding: 10px; font-family: spleenMachine;}
+.expandable { display:none; position:absolute; top:0; z-index:5;  height: 100%; overflow: hidden; padding: 10px; font-family: spleenMachine; width:728px;}
 .open-content { position:relative; top:0; z-index:2;}
 .expandable p{color:#000; float:left; margin:10px 0 0 10px; font-family:Arial, Helvetica, sans-serif; font-size:20px; font-weight: bold;}
 .expandable p.title{color:#000; float:left; width:400px; margin:0 0 20px 10px; font-size:25px; }
-.deets {display: block; width: 300px; float: left;}
+.deets {display: block; width: 380px; right: 30px; position:absolute;}
 /*.expandable p{color:#000; float:left; width:300px; margin:0 0 0 10px; font-family:Arial, Helvetica, sans-serif; font-size:20px; font-weight: bold;}*/
 @font-face
 {
