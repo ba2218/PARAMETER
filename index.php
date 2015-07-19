@@ -7,239 +7,372 @@
 <meta property="og:image" content="http://parameter.cc/logo3.jpg" />
 <meta property="og:title" content="Welcome to Parameter"/>
 <meta property="og:url" content="http://parameter.cc/"/>
-
 <title>Parameter</title>
-
-
-
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/masonry.pkgd.min.js"></script>
-<script type="text/javascript" src="js/greensock/TweenMax.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/TweenMax.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="js/shadowbox.js"></script>
-<script type="text/javascript" src="js/jquery.flexslider.js"></script>
-
-    <script> 
+<link href="css/reset.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="css/demo.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/component.css" /> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/content.css" />   -->
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+  <script src="js/modernizr.custom.js"></script>
+  <script src="js/classie.js"></script>
+  <script src="js/uiMorphingButton_fixed.js"></script>
+  <script src="js/snap.svg-min.js"></script>
+<script> 
 		
 	
  $(document).ready(function(){
                 var defaultSize = [350, 269]; // expanded box size: width , height. Used for masonry
 				var iframe = $(".myiFrame");
 				var copy = $(".expandable p");
-                $('.cunload2 a').css("top", "-269px");
+                /*$('.cunload2 a').css("top", "-269px");*/
                 //home masonry
                 $('#grid').masonry({
                     singleMode: false,
                     columnWidth: 0,
                     resizeable: true,
-                    itemSelector: '.box',
+                    itemSelector: '.morph-button',
                     isAnimated: true,
                     animationOptions: {
                         //duration: 200,
                         easing: 'swing',
                         queue: false }
                 });
-                
-                //box clicking event
-                $('.box').click(function(){
-					
-					TweenLite.from(copy, 1, {delay:1, alpha:"0"});
-					TweenLite.from(iframe, 1, {delay:1, alpha:"0"});
-					
-                    if (!$(this).is('.expanded')){
-                        var size = ($(this).attr('data-size')) ? $(this).attr('data-size').split(',') : defaultSize;
-                       $(this).find('img').hide('slow');
-					  $(this).find('a').css("height", "0").css("top", "-275px");	
-					    $(this)
-                            // save original box size
-                            .data('size', [ $(this).width(), $(this).height() ])
-                            .animate({
-                                width: size[0],
-                                height: size[1]
-                            
-							}, function(){
-                                // show hidden content when box has expanded completely
-                                $(this).find('.expandable').show('slow');
-                                $(this).find('.hideable').hide('slow');
-								$(this).removeClass("hover");
-								$(this).find('a').css("text-indent", "9999");
-                                $('#grid').masonry();
-								
-								$("iframe").each(function(){
-        $(this).attr("src", $(this).data("src"));
-    });
-								
-                            })
-                        restoreBoxes();
-					
-                        $(".box").removeClass("expanded"); //remove the class to all boxes
-						$(".box").addClass("hover"); TweenLite.to($(".hover a"), .75, {height:"0px", ease:Bounce.easeOut});;
-                        $(this).addClass('expanded'); //and add it to the actual one
-						$(this).find('a').css("text-indent", "0");
-                    }
-                });
-                
-                //close clicking event    
-                $('.cunload').click(function(e){
-                    e.stopPropagation();
-                    restoreBoxes();
-                    $(this).parents(".box").removeClass("expanded");
-                });
-				
-                    
-                //closing boxes
-                function restoreBoxes(){
-                    var len = $('.expanded').length - 1;
-                    $('.expanded').each(function(i){
-                        var box = $(this).data('size');
-                        $(this).find('.expandable').hide('slow');
-                        $(this).find('.hideable').show('slow');
-                      window.setTimeout(function() {
-     $(this).find('a').css("height", "269px").css("top", "-275px");
-},1000);							
-					   $(this).find('img').show('slow');
-                        $(this).animate({
-                                width: ( box[0] || 350 ),
-                                height: ( box[1] || 269 )
-                            }, function(){
-                                if (i >= len) {
-                                    $('#grid').masonry();
-                                }
-                            });            
-                    })
-                }
-                
-                
-						window.setTimeout(function() {
-    $('.expandable:first').click();
-},2500);
-				    
- 
-			   
-			               
-            });           
-            
         </script> 
-
-
-
-<link href="css/style-home.css" rel="stylesheet" type="text/css" />
-<link href="css/flexslider.css" rel="stylesheet" type="text/css" />
-<link href="css/style-masonry.css" rel="stylesheet" type="text/css" />
-<link href="css/reset.css" rel="stylesheet" type="text/css" />
-<link href="css/jquery.pageslide.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="css/shadowbox.css">
-
-
-  
-
 </head>
 
 <body>
         <div id="main">
             <div id="menu">
               <ul id="buttons">
-                <li id="work"><a href="index.html">Home</a></li>
-                <li id="about"><a href="work2.html">Work</a></li>
-                <li id="contact"><a class="firstb" href="contact-side.html">About</a></li>
+                <li id="work"><a href="#">Home</a></li>
+                <li id="about"><a href="#" onclick='aboutMe()'>Work</a></li>
+                <li id="contact"><a class="firstb" href="#" onclick='contactMe()' >About</a></li>
               </ul>
             </div>
-            <div class="wrap masonry" id="grid" style="position: relative; overflow: hidden; width: 1600px; ">
-              <div id="expandDefault" class="box masonry-brick hover f1" data-size="728,650" style="position: absolute; top: 0px; left: 0px; width: 350px; height: 269px; ">
-                <div class="cunload2"> <img src="images/work/9.jpg" alt="featured-slide" /> <a href="javascript:;" class="open-content">PC<br>HOLIDAY PRETZELS FOR ALL</a>
-                  <div class="box-title" style="margin-left: -100px; ">vid 1</div>
-                  <div class="expandable" style="display: none; ">
-                    <iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Pretzel_Crisps/Holiday_Pretzels_For_All/R1/PC_Holiday_PretzelsForAll_300x600.html" width="300" height="600" ></iframe>
-                    <div class="deets">
-                      <p>ClIENT: PRETZEL CRISPS</p>
-                      <p>CAMPAIGN: Holiday Pretzels For All</p>
-                      <p>DATE: November, 2013</p>
-                      <p>DESCRIPTION :<br>
-                        Snack Factory Brand Pretzel Crisps are excited for the holidays.<br>
-                        </p>
-                    </div>
+
+            <div class="wrap masonry" id="grid" >
+              <div class="morph-button morph-button-overlay morph-button-fixed">
+                <button type="button" class="iframeBtn">
+                <section id="grid" class="grid clearfix" style="  padding: 0;">
+                  <a href="#" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                    <figure>
+                      <img src="images/work/1.jpg" />
+                      <svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 180,160 0,218 0,0 180,0 z" /></svg>
+                      <figcaption>
+                        <h2>Stomp &amp; Chomp</h2>
+                        <p style="  font-size: 18px;">Soko radicchio bunya nuts gram dulse.</p>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </section>
+                </button>
+                  <div class="morph-content">
+                      <div>
+                          <div class="content-style-overlay">
+                              <span class="icon icon-close">Close the overlay</span>
+                              <div class="iframeWrapper"><iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Hasbro/Transformers_2014/R8_Stomp_and_Chomp_v2/Hasbro_Transformers_StompAndChomp_SeeItAll_300x600.html" width="300" height="600" ></iframe></div>
+                                <div class="deets">
+                                  <p>ClIENT: HASBRO</p>
+                                  <p>CAMPAIGN: Transformers Stomp &amp; Chomp</p>
+                                  <p>DATE: July, 2014 </p>
+                                  <p>DESCRIPTION :<br>
+                                   Transformer's Grimlock stomps &amp; chomps in this break out ad<br>
+                                   </p>
+                                 </div>                          
+                           </div>
+                      </div>
                   </div>
-                </div>
               </div>
-              <div class="box masonry-brick hover" data-size="728,650" style="position: absolute; top: 0px; left: 154px; width: 350px; height: 269px; ">
-                <div class="cunload2"> <img src="images/work/4.jpg" alt="featured-slide" /> <a href="javascript:;" class="open-content">BODEN<br>WOMEN'S PERFORMANCE</a>
-                  <div class="box-title" style="margin-left: -100px; ">vid 2</div>
-                  <div class="expandable" style="display: none; ">
-                    <iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/AMP/Boden_Performance_OLA/Womens_Concept_-_TipTop_-_Great_British_Style/Boden_OLA_Women_TipTop_Product_300x600_gbs.html" width="300" height="600" ></iframe>
+              <div class="morph-button morph-button-overlay morph-button-fixed">
+                <button type="button" class="iframeBtn">
+                <section id="grid" class="grid clearfix" style="  padding: 0;">
+                  <a href="#" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                    <figure>
+                      <img src="images/work/2.jpg" />
+                      <svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 180,160 0,218 0,0 180,0 z" /></svg>
+                      <figcaption>
+                        <h2>Boden Octopus </h2>
+                        <p style="  font-size: 18px;">Soko radicchio bunya nuts gram dulse.</p>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </section>
+                </button>
+                  <div class="morph-content">
+                      <div>
+                          <div class="content-style-overlay">
+                              <span class="icon icon-close">Close the overlay</span>
+                      <div class="iframeWrapper"><iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Boden/Boden_Mini_2014/Boden_MiniBoys_Octopus_ShopNow/Boden_MiniBoys_Octopus_ShopNow_300x600.html" width="300" height="600" ></iframe></div>
                     <div class="deets">
                       <p>ClIENT: BODEN</p>
-                      <p>CAMPAIGN:Women's Performance</p>
-                      <p>DATE: November, 2013</p>                       
+                      <p>CAMPAIGN: MiniBoden Octopus </p>
+                      <p>DATE: October, 2013</p>                       
+                      <p>DESCRIPTION: Nautical misadventure inspired attire for lads <br>
+                        
+                        </p>
+                    </div>                          
+                           </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="morph-button morph-button-overlay morph-button-fixed">
+                <button type="button" class="iframeBtn">
+                <section id="grid" class="grid clearfix" style="  padding: 0;">
+                  <a href="#" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                    <figure>
+                      <img src="images/work/3.jpg" />
+                      <svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 180,160 0,218 0,0 180,0 z" /></svg>
+                      <figcaption>
+                        <h2>Summer Snacking</h2>
+                        <p style="  font-size: 18px;">Soko radicchio bunya nuts gram dulse.</p>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </section>
+                </button>
+                  <div class="morph-content">
+                      <div>
+                          <div class="content-style-overlay">
+                              <span class="icon icon-close">Close the overlay</span>
+                    <div class="iframeWrapper"><iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Pretzel_Crisps/PC_Summer_2014/R5/PC_Summer2014_GetRecipes_300x600.html" width="300" height="600" ></iframe></div>
+                    <div class="deets">
+                      <p>ClIENT: PRETZEL CRISPS</p>
+                      <p>CAMPAIGN: Summer Snacking</p>
+                      <p>DATE: June, 2014</p>                       
+                      <p>DESCRIPTION: Summer snacking done the right way <br>
+                        
+                        </p>
+                    </div>                        
+                           </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="morph-button morph-button-overlay morph-button-fixed">
+                <button type="button" class="iframeBtn">
+                <section id="grid" class="grid clearfix" style="  padding: 0;">
+                  <a href="#" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                    <figure>
+                      <img src="images/work/4.jpg" />
+                      <svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 180,160 0,218 0,0 180,0 z" /></svg>
+                      <figcaption>
+                        <h2>#CHANGEONETHING Game</h2>
+                        <p style="  font-size: 18px;">Soko radicchio bunya nuts gram dulse.</p>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </section>
+                </button>
+                  <div class="morph-content">
+                      <div>
+                          <div class="content-style-overlay">
+                              <span class="icon icon-close">Close the overlay</span>
+                    <div class="iframeWrapper fbnycGame"><iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Food_Bank_NYC/FBNYC_Game_2014/AlphaQA/FoodBankGame_cc.html" width="360" height="640" ></iframe></div>
+                    <div class="deets" style="width: 340px;">
+                      <p>ClIENT: FOOD BANK NYC</p>
+                      <p>CAMPAIGN:#CHANGEONETHING Game</p>
+                      <p>DATE: July, 2014</p>                        
+                      <p>DESCRIPTION : A very informational exercise in healthy eating<br>
+                        
+                        </p>
+                    </div>                         
+                           </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="morph-button morph-button-overlay morph-button-fixed">
+                <button type="button" class="iframeBtn">
+                <section id="grid" class="grid clearfix" style="  padding: 0;">
+                  <a href="#" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                    <figure>
+                      <img src="images/work/5.jpg" />
+                      <svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 180,160 0,218 0,0 180,0 z" /></svg>
+                      <figcaption>
+                        <h2>Nerf Rebelle Secret Spies</h2>
+                        <p style="  font-size: 18px;">Soko radicchio bunya nuts gram dulse.</p>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </section>
+                </button>
+                  <div class="morph-content">
+                      <div>
+                          <div class="content-style-overlay">
+                              <span class="icon icon-close">Close the overlay</span>
+                    <div class="iframeWrapper"><iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Hasbro/Nerf_Rebelle_Secret_Spies/R2/Nerf_Rebelle_SecretSpies_LearnMore_300x600.html" width="300" height="600" ></iframe></div>
+                    <div class="deets">
+                      <p>ClIENT: HASBRO</p>
+                      <p>CAMPAIGN:Nerf Rebelle Secret Spies</p>
+                      <p>DATE: August, 2014</p>                       
                       <p>DESCRIPTION :<br>
                         
                         </p>
-                    </div>
+                    </div>                         
+                           </div>
+                      </div>
                   </div>
-                </div>
               </div>
-              <div class="box masonry-brick hover" data-size="728,650" style="position: absolute; top: 0px; left: 154px; width: 350px; height: 269px; ">
-                <div class="cunload2"> <img src="images/work/4.jpg" alt="featured-slide" /> <a href="javascript:;" class="open-content">HASBRO<br>ANGRYBIRDS GO!</a>
-                  <div class="box-title" style="margin-left: -100px; ">vid 2</div>
-                  <div class="expandable" style="display: none; ">
-                    <iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Hasbro/Angry_Birds_Go/R2/Games_Hasbro_AngryBirds_AngryBirdsGo_Retail_BuyNow_300x250.html" width="300" height="250" ></iframe>
+              <div class="morph-button morph-button-overlay morph-button-fixed">
+                <button type="button" class="iframeBtn">
+                <section id="grid" class="grid clearfix" style="  padding: 0;">
+                  <a href="#" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                    <figure>
+                      <img src="images/work/6.jpg" />
+                      <svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 180,160 0,218 0,0 180,0 z" /></svg>
+                      <figcaption>
+                        <h2>MLP Pony Shuffle</h2>
+                        <p style="  font-size: 18px;">Soko radicchio bunya nuts gram dulse.</p>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </section>
+                </button>
+                  <div class="morph-content">
+                      <div>
+                          <div class="content-style-overlay">
+                              <span class="icon icon-close">Close the overlay</span>
+                    <div class="iframeWrapper"><iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Hasbro/MLP_2014/Shuffle/Girls_Hasbro_MLP_Shuffle_PlayNow_300x600.html" width="300" height="600" ></iframe></div>
                     <div class="deets">
                       <p>ClIENT: HASBRO</p>
-                      <p>CAMPAIGN: AngryBirds Go!</p>
-                      <p>DATE: December, 2013</p>                       
-                      <p>DESCRIPTION :<br>
+                      <p>CAMPAIGN:MLP Pony Shuffle</p>
+                      <p>DATE: August, 2014</p>                        
+                      <p>DESCRIPTION : Break away from the herd by customizing your pony<br>
+                        
                         </p>
-                    </div>
+                    </div>                         
+                           </div>
+                      </div>
                   </div>
-                </div>
               </div>
-              <div class="box masonry-brick hover" data-size="728,650" style="position: absolute; top: 0px; left: 154px; width: 350px; height: 269px; ">
-                <div class="cunload2"> <img src="images/work/4.jpg" alt="featured-slide" /> <a href="javascript:;" class="open-content">HASBRO<br>MOONLITE FAIRIES</a>
-                  <div class="box-title" style="margin-left: -100px; ">vid 2</div>
-                  <div class="expandable" style="display: none; ">
-                    <iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Hasbro/LPS_MoonLight_Fairies/r1/MoonLight_Fairies_300x250.html" width="300" height="250" ></iframe>
-                    <div class="deets">
-                      <p>ClIENT: HASBRO</p>
-                      <p>CAMPAIGN: Moonlite Fairies</p>
-                      <p>DATE: September, 2012</p>                      
-                      <p>DESCRIPTION :<br>
-                        Hasbro Holloween roleplay costume campaign.<br>
-                        </p>
-                    </div>
+              <div class="morph-button morph-button-overlay morph-button-fixed">
+                <button type="button" class="iframeBtn">
+                <section id="grid" class="grid clearfix" style="  padding: 0;">
+                  <a href="#" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                    <figure>
+                      <img src="images/work/4.jpg" />
+                      <svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 180,160 0,218 0,0 180,0 z" /></svg>
+                      <figcaption>
+                        <h2>Crystalline</h2>
+                        <p style="  font-size: 18px;">Soko radicchio bunya nuts gram dulse.</p>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </section>
+                </button>
+                  <div class="morph-content">
+                      <div>
+                          <div class="content-style-overlay">
+                              <span class="icon icon-close">Close the overlay</span>
+                              <div class="iframeWrapper catBox "><iframe class="catBox" frameborder="0" scrolling="no" style="float:left;"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/AMP/Holiday_Prototypes/Conveyor_belt/giftbox.html" width="850" height="850" ></iframe></div>
+                                <div class="deets">
+                                  <p>ClIENT: HASBRO</p>
+                                  <p>CAMPAIGN: Transformers Stomp &amp; Chomp</p>
+                                  <p>DATE: July, 2014 </p>
+                                  <p>DESCRIPTION :<br>
+                                   Transformer's Grimlock stomps &amp; chomps in this break out ad<br>
+                                   </p>
+                                 </div>                          
+                           </div>
+                      </div>
                   </div>
-                </div>
+              </div>
+              <div class="morph-button morph-button-overlay morph-button-fixed">
+                <button type="button" class="iframeBtn">
+                <section id="grid" class="grid clearfix" style="  padding: 0;">
+                  <a href="#" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                    <figure>
+                      <img src="images/work/4.jpg" />
+                      <svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 180,160 0,218 0,0 180,0 z" /></svg>
+                      <figcaption>
+                        <h2>Crystalline</h2>
+                        <p style="  font-size: 18px;">Soko radicchio bunya nuts gram dulse.</p>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </section>
+                </button>
+                  <div class="morph-content">
+                      <div>
+                          <div class="content-style-overlay">
+                              <span class="icon icon-close">Close the overlay</span>
+                              <div class="iframeWrapper"><iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Hasbro/Transformers_2014/R8_Stomp_and_Chomp_v2/Hasbro_Transformers_StompAndChomp_SeeItAll_300x600.html" width="300" height="600" ></iframe></div>
+                                <div class="deets">
+                                  <p>ClIENT: HASBRO</p>
+                                  <p>CAMPAIGN: Transformers Stomp &amp; Chomp</p>
+                                  <p>DATE: July, 2014 </p>
+                                  <p>DESCRIPTION :<br>
+                                   Transformer's Grimlock stomps &amp; chomps in this break out ad<br>
+                                   </p>
+                                 </div>                          
+                           </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="morph-button morph-button-overlay morph-button-fixed">
+                <button type="button" class="iframeBtn">
+                <section id="grid" class="grid clearfix" style="  padding: 0;">
+                  <a href="#" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                    <figure>
+                      <img src="images/work/1.jpg" />
+                      <svg viewBox="0 0 180 320" preserveAspectRatio="none"><path d="M 180,160 0,218 0,0 180,0 z" /></svg>
+                      <figcaption>
+                        <h2>Crystalline</h2>
+                        <p style="  font-size: 18px;">Soko radicchio bunya nuts gram dulse.</p>
+                      </figcaption>
+                    </figure>
+                  </a>
+                </section>
+                </button>
+                  <div class="morph-content">
+                      <div>
+                          <div class="content-style-overlay">
+                              <span class="icon icon-close">Close the overlay</span>
+                              <div class="iframeWrapper"><iframe style="float:left; border: #000 2px solid"  class="myiFrame" src="about:blank"  data-src="http://extranet.pixelbridge.com/userfiles/Hasbro/Transformers_2014/R8_Stomp_and_Chomp_v2/Hasbro_Transformers_StompAndChomp_SeeItAll_300x600.html" width="300" height="600" ></iframe></div>
+                                <div class="deets">
+                                  <p>ClIENT: HASBRO</p>
+                                  <p>CAMPAIGN: Transformers Stomp &amp; Chomp</p>
+                                  <p>DATE: July, 2014 </p>
+                                  <p>DESCRIPTION :<br>
+                                   Transformer's Grimlock stomps &amp; chomps in this break out ad<br>
+                                   </p>
+                                 </div>                          
+                           </div>
+                      </div>
+                  </div>
               </div>
 
-
-<script src="js/jquery.pageslide.min.js"></script>
-<script>
-$("a.firstb").pageslide();
-</script>
+</div>
+</div>
 
 <script>
+        function aboutMe(){
+          $('.about').click();
+        }     
+
+        function contactMe(){
+          $('.contact').click();
+        }        
+
 
 $(document).ready(function () {
-          
-  
 		
 	//Declarations
 	var tl1 = new TimelineLite({});
 	var tl2 = new TimelineLite({});
 	var menu = $("#menu"),
-		featured = $(".box"),
+		featured = $(".morph-button"),
 		hotSpot = $(".active"),
 		cover = $(".hover a"),
 		logo =  $("#logoBig");
+var emptySource = 'about:blank';
 
-
-
-	//Start
-	/*TweenLite.to(logo, .75, {marginTop:(($(window).height()/2) - (logo.height()/2)), ease:Bounce.easeOut});
-	TweenLite.to(logo, .75, {delay:1.5, alpha:"0", onComplete:revealSite});*/
 	logo.css("display", "none");
 	revealSite();
 	function revealSite(){
-	
-		
 	logo.css("margin-top", "0");		
 	$("#air").css("display", "block");
 	$("#air").css("margin-top", "0");
@@ -247,20 +380,125 @@ $(document).ready(function () {
 	tl2.staggerFrom(featured, .5, {delay:.5, marginTop:"-=1200", alpha:"1", ease:Linear.easeOut}, .1);
 	
 	
-	$(".hover").hover(function(){$(this).addClass("active"); TweenLite.to($(".hover.active a"), .75, {height:"269px", ease:Bounce.easeOut});}, function(){$(this).removeClass("active");
-	TweenLite.to($(".hover a"), .75, {height:"0px", ease:Bounce.easeOut});});
+	$(".hover").hover(function(){$(this).addClass("active"); TweenLite.to($(".hover.active a"), .25, {height:"269px", ease:Linear.easeOut});}, function(){$(this).removeClass("active");
+	TweenLite.to($(".hover a"), .25, {height:"0px", ease:Linear.easeOut});});
 	
-		window.setTimeout(function() {
-   $(".wrap").css("width", "90%").css("height", "900px");
-}, 1500);
+    //window.setTimeout(function() {$(".wrap").css("width", "100%").css("height", "900px").css("position", "absolute");}, 1500);
+		window.setTimeout(function() {$(".wrap").css("position", "absolute");}, 1500);
 
 	
 	}
 	
+$(".iframeBtn").click(function(){
+  $(this).find("iframe").attr("src", $(this).data("src"));
+  console.log("iframe loaded")
+});
+
+        var docElem = window.document.documentElement, didScroll, scrollPosition;
+
+        // trick to prevent scrolling when opening/closing button
+        function noScrollFn() {
+          window.scrollTo( scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0 );
+        }
+
+        function noScroll() {
+          window.removeEventListener( 'scroll', scrollHandler );
+          window.addEventListener( 'scroll', noScrollFn );
+        }
+
+        function scrollFn() {
+          window.addEventListener( 'scroll', scrollHandler );
+        }
+
+        function canScroll() {
+          window.removeEventListener( 'scroll', noScrollFn );
+          scrollFn();
+        }
+
+        function scrollHandler() {
+          if( !didScroll ) {
+            didScroll = true;
+            setTimeout( function() { scrollPage(); }, 60 );
+          }
+        };
+
+        function scrollPage() {
+          scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
+          didScroll = false;
+        };
+
+        scrollFn();
+        
+        [].slice.call(document.querySelectorAll( '.morph-button' )).forEach( function(el) {
+  new UIMorphingButton( el, {
+    closeEl : '.icon-close',
+    onBeforeOpen : function() {
+      // don't allow to scroll
+      noScroll();
+    },
+    onAfterOpen : function() {
+      // can scroll again
+      canScroll();
+      // add class "noscroll" to body
+      classie.addClass( document.body, 'noscroll' );
+      // add scroll class to main el
+      classie.addClass( el, 'scroll' );
+        // $(this).find("iframe").attr("src", $(this).data("src"));
+
+        $("iframe").each(function(){
+       // $(this).attr("src", $(this).data("src"));
+    });       
+    },
+    onBeforeClose : function() {
+      // remove class "noscroll" to body
+      classie.removeClass( document.body, 'noscroll' );
+      // remove scroll class from main el
+      classie.removeClass( el, 'scroll' );
+      // don't allow to scroll
+      noScroll();
+    
+
+
+    },
+    onAfterClose : function() {
+      // can scroll again
+      canScroll();
+      // $(this).find("iframe").attr("src", emptySource);
+        $("iframe").each(function(){
+        //$(this).attr("src", emptySource);
+    });  
+    }
+  } );
+});    
 });
 
 
+(function() {
+  
+        function init() {
+          var speed = 250,
+            easing = mina.easeinout;
 
+          [].slice.call ( document.querySelectorAll( '#grid > a' ) ).forEach( function( el ) {
+            var s = Snap( el.querySelector( 'svg' ) ), path = s.select( 'path' ),
+              pathConfig = {
+                from : path.attr( 'd' ),
+                to : el.getAttribute( 'data-path-hover' )
+              };
+
+            el.addEventListener( 'mouseenter', function() {
+              path.animate( { 'path' : pathConfig.to }, speed, easing );
+            } );
+
+            el.addEventListener( 'mouseleave', function() {
+              path.animate( { 'path' : pathConfig.from }, speed, easing );
+            } );
+          } );
+        }
+
+        init();
+
+      })();
 
 </script>
 
@@ -269,8 +507,7 @@ $(document).ready(function () {
          
            
 
-</div>
-</div>
+
 
 </body>
 </html>
